@@ -1,18 +1,46 @@
 .home {
   &__jumbotron {
-    background-image: url('../../assets/images/jumbotron-image.jpg'), linear-gradient(rgba(34,34,23,.2), yellow); //temporary
+    background-image: url("./jumbotron-image.jpg"),
+      linear-gradient(rgba(0, 0, 0, 0.3), whitesmoke); //temporary
+    background-size: cover;
+    background-position: right;
     position: relative;
     padding: 10px 20vw;
-
   }
 
-  &__service-providers{
-      overflow-x: scroll;
-      &::-webkit-scrollbar{
-          background-color: lightgrey;
-          width: 2px;
-          border-radius: 10px;
-      }
+  &__getting-started {
+    width: 50%;
   }
 
+  &__service-providers {
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      background-color: lightgrey;
+      width: 2px;
+      border-radius: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .home {
+    &__jumbotron {
+      padding: 5vw;
+    }
+
+    &__getting-started{
+        width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .home {
+    &__jumbotron {
+      padding: 3vw;
+    }
+    &__getting-started{
+        width: 100%;
+    }
+  }
 }

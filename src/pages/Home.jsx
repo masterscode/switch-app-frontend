@@ -17,7 +17,7 @@ export const Home = () => {
       <section className="home__jumbotron">
       <NavBar />
 
-        <div className="banner w-50 my-5 text-white py-5 p-xs-2">
+        <div className="home__getting-started my-5 text-white py-5 p-xs-2">
           <h2 className="fw-normal">
             Buy Electricity from the comfort of your home
           </h2>
