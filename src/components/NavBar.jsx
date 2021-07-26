@@ -20,7 +20,8 @@ export const NavBar = () => {
         <div className="collapse navbar-collapse ml-auto" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <Link className="nav-link btn btn-primary text-white  text-uppercase fw-bold" to="/login">
-              Buy Electricity
+              Buy Electricity 
+              {/* < Login /> */}
             </Link>
           </div>
         </div>
