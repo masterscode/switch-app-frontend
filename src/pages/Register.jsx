@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { InputDetails } from "../components/InputDetails";
+import { doRegister } from "../services/auth";
+import  Joi  from "joi-browser";
+import {formValidationSchema} from '../services/form-validation-schema'
 
 export const Register = () => {
   const initialStateOfFields = {
@@ -8,6 +11,7 @@ export const Register = () => {
     phoneNumber: "",
     email: "",
     password: "",
+    confirmPassword:'',
   };
 
   const [field, setField] = useState(initialStateOfFields);
@@ -15,6 +19,7 @@ export const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setField((field) => ({ ...field, [name]: value }));
+
   };
 
   const schema = [
@@ -53,7 +58,26 @@ export const Register = () => {
       id: "password",
       label: "password",
     },
+    {
+      type: "password",
+      name: "confirmPassword",
+      value: field.confirmPassword,
+      id: "confirm-password",
+      label: "confirm password",
+    },
   ];
+
+
+  const handleSubmit = (submitEvent)=>{
+        const regStatus = doRegister(submitEvent, field);
+  }
+
+  const handleValidation = (keyEvent)=>{
+      const {name} = keyEvent.target;
+    const error = Joi.validate(field[name], formValidationSchema[name]);
+
+    console.log(error);
+  }
 
   return (
     <div
@@ -75,13 +99,13 @@ export const Register = () => {
           } */}
 
           {schema.map((obj, index) => (
-            <InputDetails {...obj} key={index} fn={handleChange} />
+            <InputDetails {...obj} key={index} fn={handleChange} validator={handleValidation} />
           ))}
-        </form>
-
-        <button className="btn btn-primary d-block w-100 mx-auto" type="submit">
+        <button className="btn btn-primary d-block w-100 mx-auto" type="submit" onClick= {handleSubmit}>
           Register
         </button>
+        </form>
+
         <div className="button-link m-4">
           <a className="btn d-block mx-auto" href="/login">
             Back to Login
