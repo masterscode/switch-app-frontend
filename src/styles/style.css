@@ -1,0 +1,82 @@
+.home__jumbotron {
+  background-image: url("./jumbotron-image.jpg"), -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(whitesmoke));
+  background-image: url("./jumbotron-image.jpg"), linear-gradient(rgba(0, 0, 0, 0.3), whitesmoke);
+  background-size: cover;
+  background-position: right;
+  position: relative;
+  padding: 10px 20vw;
+}
+
+.home__getting-started {
+  width: 50%;
+}
+
+.home__service-providers {
+  overflow-x: scroll;
+}
+
+.home__service-providers::-webkit-scrollbar {
+  background-color: lightgrey;
+  width: 2px;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 850px) {
+  .home__jumbotron {
+    padding: 5vw;
+  }
+  .home__getting-started {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .home__jumbotron {
+    padding: 3vw;
+  }
+  .home__getting-started {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .login-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.header {
+  padding: 5px, 0;
+  background-color: white;
+  color: #d87b10;
+}
+
+.header h3 {
+  font-size: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.button-link .btn {
+  background-color: #d9bc94;
+}
+
+.separator {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border: none !important;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+/*# sourceMappingURL=style.css.map */

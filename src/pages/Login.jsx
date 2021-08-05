@@ -43,7 +43,7 @@ export const Login = () => {
 
           <InputDetails
             type="password"
-            className="form-control"
+
 			name='password'
 			value={field.password}
             id="password"
