@@ -11,7 +11,7 @@ export const formValidationSchema = {
   password: Joi.string().required().min(8).label("Password").regex(passwordPattern).error(customErrorMessage),
 //   confirmPassword: Joi.any().valid(Joi.ref('password')).required().label("Confirm Password").options({ language: { any:{ allowOnly: 'must match password' } }}),
   confirmPassword: Joi.string().required().min(8).label("Confirm Password").regex(passwordPattern).error(customErrorMessage),
-  phoneNumber: Joi.string().required().max(14).label("Phone Number").regex(phoneNumberPattern).error(customErrorMessage)
+  phoneNumber: Joi.string().required().length(14).label("Phone Number").regex(phoneNumberPattern).error(customErrorMessage)
 };
 
 
@@ -32,8 +32,8 @@ function customErrorMessage(error){
             return {message:`${context.label} cannot be empty`}
         case "string.min":
             return {message:`${context.label} must be more than ${context.limit} characters`}
-        case "string.max":
-            return {message:`${context.label} must not be more than ${context.limit} characters`}
+        case "string.length":
+            return {message:`${context.label} must be ${context.limit} characters`}
         case  "string.regex.base":
             return {message:`${messages[context.label]} `}
         }

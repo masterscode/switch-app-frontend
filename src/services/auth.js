@@ -1,25 +1,18 @@
-import {baseUrl} from './config.json';
-import axios from 'axios';
+import { baseUrl } from "./config.json";
+import axios from "axios";
 
+async function doRegister(formSubmitEvent, formData) {
+  formSubmitEvent.preventDefault();
 
-
-async function doRegister(formSubmitEvent, formData){
-    formSubmitEvent.preventDefault();
-
-
-    const url = baseUrl + '/users/register';
-    try{
-    const response = await axios.post(url, formData );
-    console.log(response);
-    }catch(exception){
-        console.log(exception.response.data);
-    }
-
-
+  const url = baseUrl + "/users/register";
+  try {
+    const { data } = await axios.post(url, formData);
+    return { data, status: true };
+  } catch (exception) {
+    return { error: exception.response, status: false };
+  }
 }
 
+function doLogin() {}
 
-function doLogin(){}
-
-
-export {doLogin, doRegister};
+export { doLogin, doRegister };

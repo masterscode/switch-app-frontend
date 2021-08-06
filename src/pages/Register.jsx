@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { InputDetails } from "../components/InputDetails";
 import { doRegister } from "../services/auth";
-import  Joi  from "joi-browser";
-import {formValidationSchema} from '../services/form-validation-schema'
+import Joi from "joi-browser";
+import { formValidationSchema } from "../services/form-validation-schema";
 
 export const Register = () => {
   const initialStateOfFields = {
@@ -11,13 +11,16 @@ export const Register = () => {
     phoneNumber: "",
     email: "",
     password: "",
-    confirmPassword:'',
+    confirmPassword: "",
   };
-
- 
+  
   const [field, setField] = useState(initialStateOfFields);
   const [error, setError] = useState({});
-  const schema = ( [
+  const [valid, setValid] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const schema = [
     {
       type: "text",
       name: "firstName",
@@ -60,65 +63,78 @@ export const Register = () => {
       id: "confirm-password",
       label: "confirm password",
     },
-  ]);
-
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    field[name];
+
     setField((field) => ({ ...field, [name]: value }));
 
+
+    const allKeys = Object.keys(field);
+    const validForm = allKeys.every((key) => field[key]);
+    setValid(validForm);
+    setErrorMessage("");
+    setSuccessMessage("");
   };
 
-//   const isFormValid = () => {
-//     const {firstName, lastName, phoneNumber, email, password, confirmPassword} = {...field}
-  
-//     return firstName && lastName && phoneNumber && email && password && confirmPassword;
-//   }
 
-
-  const validateBeforeSubmission = ()=>{
-    Object.entries(field).forEach(entry=>{
-        const [name, value] = entry;
-        const joi = Joi.validate(value, formValidationSchema[name]);
-        const errorMessage = joi.error ? joi.error.message.replaceAll('"', '') : false;
-        setError(error=>({...error,[name]: errorMessage}));
+  const validateBeforeSubmission = () => {
+    Object.entries(field).forEach((entry) => {
+      const [name, value] = entry;
+      const joi = Joi.validate(value, formValidationSchema[name]);
+      const errorMessage = joi.error
+        ? joi.error.message.replaceAll('"', "")
+        : false;
+      setError((error) => ({ ...error, [name]: errorMessage }));
     });
 
-    return Object.values(error).every(el => el == false );
-}
+    return Object.values(error).every((el) => el == false);
+  };
 
-  const handleSubmit = async (submitEvent)=>{
-        submitEvent.preventDefault();
-        const isValid = validateBeforeSubmission();
-        if(isValid){
-            try{
-                const regStatus = await doRegister(submitEvent, field);
+  const resetFields = () => {
+    setField((field) => ({ ...initialStateOfFields }));
+  };
+  const handleSubmit = async (submitEvent) => {
+    submitEvent.preventDefault();
+    const isValid = validateBeforeSubmission();
+    console.log("isvalid", isValid);
+    if (isValid) {
+      const res = await doRegister(submitEvent, field);
+      const status = res.status;
+      if (status) {
+        setSuccessMessage("Registration successful");
+        resetFields();
+      } else setErrorMessage("User Already Exists");
 
-            }catch(exception){
-                
-        }
+      console.log("U clicked me");
 
-            }
-        
+      // const status = await res.status;
+      // console.log(status);
+      // if(status === false) setRegistrationStatus(res.error.message);
+      // if(status) setRegistrationStatus('Registration successful');
+    }
+  };
 
-  }
-
-  const handleValidation = (keyEvent, index)=>{
-    const {name} = keyEvent.target;
+  const handleValidation = (keyEvent, index) => {
+    const { name } = keyEvent.target;
     const joi = Joi.validate(field[name], formValidationSchema[name]);
 
-    const errorMessage = joi.error ? joi.error.message.replaceAll('"', '') : false;
-    setError(error=>({...error, [name]: errorMessage}));
+    const errorMessage = joi.error
+      ? joi.error.message.replaceAll('"', "")
+      : false;
+    setError((error) => ({ ...error, [name]: errorMessage }));
 
-    if(name === 'confirmPassword' && field.password !== field.confirmPassword){
-        setError(error =>({...error, confirmPassword:'password does not match'}));
-
+    if (
+      name === "confirmPassword" &&
+      field.password !== field.confirmPassword
+    ) {
+      setError((error) => ({
+        ...error,
+        confirmPassword: "password does not match",
+      }));
     }
-  }
-
-
-
+  };
 
   return (
     <div
@@ -133,18 +149,38 @@ export const Register = () => {
         <h3 className="header text-center text-uppercase fw-bold my-2">
           Register Here
         </h3>
-
+        {errorMessage && !successMessage && (
+          <div className="alert alert-danger">
+            {errorMessage}
+          </div>
+        )}
+        {successMessage && !errorMessage && (
+          <div className="alert alert-success">
+            {successMessage}
+          </div>
+        )}
         <form>
           {/* {
               Object.keys(field).map((fkeys, index)=>(<InputDetails placeholder={''}  label={fkeys} value={field[fkeys]} id={fkeys} />))
           } */}
 
           {schema.map((obj, index) => (
-            <InputDetails {...obj} error={error[obj.name]} key={index} fn={handleChange} validator={(e)=>handleValidation(e, index)}  />
+            <InputDetails
+              {...obj}
+              error={error[obj.name]}
+              key={index}
+              fn={handleChange}
+              validator={(e) => handleValidation(e, index)}
+            />
           ))}
-        <button className="btn btn-primary d-block w-100 mx-auto" disabled={error.disabled} type="submit" onClick= {handleSubmit}>
-          Register
-        </button>
+          <button
+            className="btn btn-primary d-block w-100 mx-auto"
+            disabled={!valid}
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Register
+          </button>
         </form>
 
         <div className="button-link m-4">
