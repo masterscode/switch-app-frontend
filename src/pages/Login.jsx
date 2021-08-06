@@ -4,8 +4,7 @@ import { InputDetails } from "../components/InputDetails";
 export const Login = () => {
   const initialStateOfFields = {
     password: "",
-    'firstName': "",
-	phone:'',
+	phoneNumber:""
   };
 
   const [field, setField] = React.useState(initialStateOfFields);
@@ -21,10 +20,10 @@ export const Login = () => {
 // 	const reponse = await fetch('url', {method:'POST', body:field});
 // }
   return (
-    <div className=" border border-3 m-0 rounded" style = {{background :'url(jumbotron-image.jpg)', height:'100vh', backgroundSize:'contained'}}>
+    <div className=" border m-0 rounded" style = {{background :'url(jumbotron-image.jpg)', height:'100vh', backgroundSize:'contained'}}>
      
 
-      <div className="w-25 p-3 rounded mx-auto my-3 border bg-white ">
+      <div className="w-25 p-3 rounded mx-auto my-3 border bg-white">
 
         <h3 className="header text-center text-uppercase fw-bold my-2">Login</h3>
 
@@ -44,7 +43,7 @@ export const Login = () => {
 
           <InputDetails
             type="password"
-            className="form-control"
+
 			name='password'
 			value={field.password}
             id="password"
@@ -62,7 +61,7 @@ export const Login = () => {
               Forgot your password ?
             </a>
             <span className="separator"></span>
-            <a className="btn p-2 d-inline-block" href="#">
+            <a className="btn p-2 d-inline-block" href="/register">
               Register
             </a>
           </div>

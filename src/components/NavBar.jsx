@@ -21,7 +21,6 @@ export const NavBar = () => {
           <div className="navbar-nav">
             <Link className="nav-link btn btn-primary text-white  text-uppercase fw-bold" to="/login">
               Buy Electricity 
-              {/* < Login /> */}
             </Link>
           </div>
         </div>
