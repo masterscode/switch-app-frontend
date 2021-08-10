@@ -13,7 +13,7 @@ export const Register = () => {
     password: "",
     confirmPassword: "",
   };
-  
+
   const [field, setField] = useState(initialStateOfFields);
   const [error, setError] = useState({});
   const [valid, setValid] = useState(false);
@@ -70,14 +70,12 @@ export const Register = () => {
 
     setField((field) => ({ ...field, [name]: value }));
 
-
     const allKeys = Object.keys(field);
     const validForm = allKeys.every((key) => field[key]);
     setValid(validForm);
     setErrorMessage("");
     setSuccessMessage("");
   };
-
 
   const validateBeforeSubmission = () => {
     Object.entries(field).forEach((entry) => {
@@ -98,21 +96,15 @@ export const Register = () => {
   const handleSubmit = async (submitEvent) => {
     submitEvent.preventDefault();
     const isValid = validateBeforeSubmission();
-    console.log("isvalid", isValid);
     if (isValid) {
       const res = await doRegister(submitEvent, field);
       const status = res.status;
       if (status) {
         setSuccessMessage("Registration successful");
         resetFields();
-      } else setErrorMessage("User Already Exists");
-
-      console.log("U clicked me");
-
-      // const status = await res.status;
-      // console.log(status);
-      // if(status === false) setRegistrationStatus(res.error.message);
-      // if(status) setRegistrationStatus('Registration successful');
+      } else {
+        setErrorMessage(res.error);
+      }
     }
   };
 
@@ -150,14 +142,12 @@ export const Register = () => {
           Register Here
         </h3>
         {errorMessage && !successMessage && (
-          <div className="alert alert-danger">
+          <div className="alert alert-danger text-capitalize">
             {errorMessage}
           </div>
         )}
         {successMessage && !errorMessage && (
-          <div className="alert alert-success">
-            {successMessage}
-          </div>
+          <div className="alert alert-success">{successMessage}</div>
         )}
         <form>
           {/* {
