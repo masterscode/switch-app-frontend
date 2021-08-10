@@ -4,6 +4,7 @@ import Dashboard from '../pages/dashboard';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import Register from '../pages/Register';
+import UserDashboard from '../pages/user/UserDashboard';
 
 const Routes = () => (
   <Switch>
@@ -11,6 +12,7 @@ const Routes = () => (
     <Route path="/dashboard" exact component={Dashboard} />
     <Route path="/login" exact component={Login} />
     <Route path="/register" exact component={Register} />
+    <Route path="/user-dashboard" exact component={UserDashboard} />
   </Switch>
 );
 
