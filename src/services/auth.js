@@ -9,7 +9,12 @@ async function doRegister(formSubmitEvent, formData) {
     const { data } = await axios.post(url, formData);
     return { data, status: true };
   } catch (exception) {
-    return { error: exception.response, status: false };
+    const error  = exception.response;
+    const requestError = exception.request;
+    if(requestError.status == 0)return { error: 'network error' , status: false };
+    if(error.status == 409)return { error: error.data , status: false };
+    if(error.status == 500)return { error: "The server is currently down, try again later!!!" , status: false };
+
   }
 }
 
