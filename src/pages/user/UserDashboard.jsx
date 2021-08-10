@@ -1,7 +1,7 @@
 import React from 'react';
 
 const UserDashboard = () => {
-  const [user, setUser] = React.useState({});
+  // const [user, setUser] = React.useState({});
   const sideLinks = [
     { link: '', label: 'quick purchase', icon: '' },
     { link: '', label: 'transactions', icon: '' },
