@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Joi from 'joi-browser';
 import { InputDetails } from '../components/InputDetails';
 import { doRegister } from '../services/auth';
-import { formValidationSchema } from '../services/form-validation-schema';
+import { formValidationSchema } from '../utils/form-validation-schema';
 
 const Register = () => {
   const initialStateOfFields = {

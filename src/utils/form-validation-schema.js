@@ -4,7 +4,7 @@ const phoneNumberPattern = new RegExp(/^(\+\d{1,3}( )?)?(\d{3})\d{3}\d{4}$/);
 const passwordPattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*\"\'\?\.])");
 
 
-export const formValidationSchema = {
+const formValidationSchema = {
   firstName: Joi.string().min(3).required().label("First Name"),
   lastName: Joi.string().required().min(3).label("Last Name"),
   email: Joi.string().required().email().label("Email"),
@@ -40,3 +40,5 @@ function customErrorMessage(error){
       }
     );
 }
+
+export {formValidationSchema}
