@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const InputDetails = ({
+const InputDetails = ({
   type,
   placeholder,
   id,
@@ -9,8 +9,7 @@ export const InputDetails = ({
   classList,
   label,
   fn,validator, error,pattern
-}) => {
-  return (
+}) => (
     <div className={error? "border-danger border border-1 rounded p-2 my-1":"border border-2 rounded p-2 my-1"}>
           <label htmlFor={id} className='text-black-50 text-uppercase'>{label}</label>
       <input
@@ -28,7 +27,18 @@ export const InputDetails = ({
       {error && <small className='text-danger'>
         {/* <i className="bi-exclamation-lg"></i>   */}
         {error}
-        </small>} {/*show error message if the error props is not null*/}
+        </small>} {/* show error message if the error props is not null */}
     </div>
   );
-};
+
+// TODO  add 'is-valid' bootstrap 
+
+const InputField = ({id,name, value, type, label, fn})=>(
+  <div className="mb-3">
+  <label htmlFor={id} className="form-label text-capitalize text-black-50">{label}</label>
+  <input type={type} name={name}  value={value} onChange={fn} className="form-control form-control-lg" id={id} />
+</div>
+)
+
+
+export {InputField, InputDetails}
