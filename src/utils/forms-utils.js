@@ -43,4 +43,9 @@ const getFormSchema = (state) => [
   },
 ];
 
-export { getFormSchema };
+const handleInputChange = (e, setState)=>{
+  const { name, value } = e.target;
+  setState(prev => ({ ...prev, [name]: value }));
+}
+
+export { getFormSchema, handleInputChange };
