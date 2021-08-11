@@ -11,7 +11,7 @@ import kedco from "../assets/images/service-providers/kedco.svg";
 import phedc from "../assets/images/service-providers/kedco.svg";
 import { InputDetails } from "../components/InputDetails";
 
-export const Home = () => {
+const Home = () => {
   const initialStateOfFields = {
     password: "",
     firstName: "",
@@ -105,3 +105,5 @@ export const Home = () => {
     </main>
   );
 };
+
+export default Home;
